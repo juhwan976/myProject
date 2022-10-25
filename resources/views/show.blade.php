@@ -1,0 +1,92 @@
+@extends('components/layout')
+@section('content')
+  <div
+    class="
+      my-4 
+      p-4
+      border
+    "
+  >
+    <div
+      class="
+        flex
+        mb-4
+      "
+    >
+      <p
+        class="w-24"
+      >작성자</p>
+      <p>
+        {{$post->user_name}}
+      </p>
+    </div>
+    <div
+      class="
+        flex
+        justify-between
+        mb-4
+      "
+    >
+      <div class="flex">
+        <p
+          class="w-24"
+        >
+          작성일
+        </p>
+        <p>
+          {{$post->created_at}}
+        </p>
+      </div>
+      @auth
+        @if(Auth::user()->google_id == $post->google_id)
+          <div>
+            <button
+              onclick="location.href='{{route('edit', ['id' => $post->post_id])}}'",
+            >
+              글 수정하기
+            </button>
+            <button 
+              class="ml-4"
+              onclick="location.href='{{route('delete', ['id' => $post->post_id])}}'"
+            >
+              글 삭제하기
+            </button>
+          </div>
+        @endif
+      @endauth
+    </div>
+    <div
+      class="
+        flex
+      "
+    >
+      <p
+        class="w-24"
+      >
+        내용
+      </p>
+      <p
+        class="w-4/5"
+      >
+        {{$post->content}}
+      </p>
+    </div>
+  </div>
+  <button
+    class='
+      ml-4
+      mb-4
+    '
+    onclick="location.href='{{route('list')}}'"
+  >
+    뒤로가기
+  </button>
+@endsection
+
+@section('footer')
+  @include('components/footer')
+@endsection
+
+@section('header')
+  @include('components/header')
+@endsection

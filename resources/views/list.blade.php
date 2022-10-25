@@ -1,0 +1,106 @@
+@extends('components/layout')
+@section('content')
+  <div>
+    <ul 
+      class="
+        my-4"
+    >
+      <li>
+        <ul
+          class="
+            flex
+            justify-between
+            items-center
+            px-10
+            h-12
+            border
+          "
+        >
+          <li
+            class="flex-auto"
+          >글쓴이</li>
+          <li
+            class="flex-auto"
+          >내용</li>
+          <li
+            class="
+              flex-none 
+              w-36 
+              justify-center 
+              flex
+            "
+          >작성일</li>
+          <br/>
+        </ul>
+      </li>
+      @if($posts->isEmpty())
+        <li
+          class="
+            flex
+            justify-center
+            items-center
+            px-10
+            h-12
+            border
+          "
+        >
+          게시글이 없습니다
+        </li>
+      @else
+        @foreach($posts as $post)
+          <li>
+            <a
+              href="{{route('show', ['id' => $post->post_id])}}"
+            >
+              <ul
+                class="
+                  px-10
+                  h-12
+                  items-center
+                  border
+                  flex
+                "
+              >
+                <li
+                  class="
+                    w-16
+                    text-ellipsis
+                    overflow-hidden
+                    whitespace-nowrap
+                  "
+                >
+                  {{$post->user_name}}
+                </li>
+                <li
+                  class="
+                    w-96
+                    mx-auto
+                    text-ellipsis
+                    overflow-hidden
+                    whitespace-nowrap
+                  "
+                >{{$post->content}}</li>
+                <li
+                  class="block"
+                >{{$post->created_at}}</li>
+              </ul>
+            </a>
+          </li>
+        @endforeach
+      @endif
+    </ul>
+    <div
+      class="mb-4"
+    >
+      {{$posts->links()}}
+    </div>
+  </div>
+@endsection
+
+@section('footer')
+  @include('components/footer')
+@endsection
+
+@section('header')
+  @include('components/header')
+@endsection
